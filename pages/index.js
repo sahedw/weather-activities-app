@@ -8,8 +8,6 @@ import useLocalStorageState from "use-local-storage-state";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const isGoodWeather = true;
-
 export default function Home() {
   const [weatherData, setWeatherData] = useState();
 
@@ -19,6 +17,7 @@ export default function Home() {
   });
 
   const url = `https://example-apis.vercel.app/api/weather/${location}`;
+
   useEffect(() => {
     async function fetchWeather() {
       try {
@@ -45,7 +44,7 @@ export default function Home() {
   }
 
   const filteredWeatherActivities = activity.filter(
-    (element) => element.checkedWeather === weatherData?.isGoodWeather
+    (element) => element.checkedWeather === weatherData.isGoodWeather
   );
 
   return (
@@ -58,7 +57,7 @@ export default function Home() {
       </Head>
       <main>
         <h1 className="display">
-          {weatherData?.condition} {weatherData?.temperature} ˚
+          {weatherData.condition} {weatherData.temperature} ˚
         </h1>
         <section>
           <p>Pick your location:</p>
@@ -94,7 +93,7 @@ export default function Home() {
 
         <h3>
           {" "}
-          {weatherData?.isGoodWeather
+          {weatherData.isGoodWeather
             ? "Currently we're having good weather"
             : "Currently we're having bad weather"}
         </h3>
