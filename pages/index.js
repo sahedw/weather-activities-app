@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [weatherData, setWeatherData] = useState();
 
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState("");
   const [activity, setActivity] = useLocalStorageState("activities", {
     defaultValue: [],
   });
@@ -44,7 +44,7 @@ export default function Home() {
   }
 
   const filteredWeatherActivities = activity.filter(
-    (element) => element.checkedWeather === weatherData.isGoodWeather
+    (element) => element.checkedWeather === weatherData?.isGoodWeather
   );
 
   return (
@@ -57,7 +57,7 @@ export default function Home() {
       </Head>
       <main>
         <h1 className="display">
-          {weatherData.condition} {weatherData.temperature} ˚
+          {weatherData?.condition} {weatherData?.temperature} ˚
         </h1>
         <section>
           <p>Pick your location:</p>
@@ -93,7 +93,7 @@ export default function Home() {
 
         <h3>
           {" "}
-          {weatherData.isGoodWeather
+          {weatherData?.isGoodWeather
             ? "Currently we're having good weather"
             : "Currently we're having bad weather"}
         </h3>
