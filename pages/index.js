@@ -11,28 +11,14 @@ const inter = Inter({ subsets: ["latin"] });
 const isGoodWeather = true;
 
 export default function Home() {
+  const [weatherData, setWeatherData] = useState();
+
+  const [location, setLocation] = useState();
   const [activity, setActivity] = useLocalStorageState("activities", {
     defaultValue: [],
   });
 
-  const [weatherData, setWeatherData] = useState();
-
-  const [location, setLocation] = useState();
-
-  function handleAddActivity(newActivity) {
-    setActivity([...activity, { ...newActivity, id: uid() }]);
-  }
-
-  function handleDeleteActivity(id) {
-    setActivity(activity.filter((element) => element.id !== id));
-  }
-
-  const filteredWeatherActivities = activity.filter(
-    (element) => element.checkedWeather === weatherData?.isGoodWeather
-  );
-
   const url = `https://example-apis.vercel.app/api/weather/${location}`;
-
   useEffect(() => {
     async function fetchWeather() {
       try {
@@ -50,6 +36,18 @@ export default function Home() {
     fetchWeather();
   }, [url]);
 
+  function handleAddActivity(newActivity) {
+    setActivity([...activity, { ...newActivity, id: uid() }]);
+  }
+
+  function handleDeleteActivity(id) {
+    setActivity(activity.filter((element) => element.id !== id));
+  }
+
+  const filteredWeatherActivities = activity.filter(
+    (element) => element.checkedWeather === weatherData?.isGoodWeather
+  );
+
   return (
     <>
       <Head>
@@ -60,7 +58,7 @@ export default function Home() {
       </Head>
       <main>
         <h1 className="display">
-          {weatherData?.condition} {weatherData?.temperature}˚
+          {weatherData?.condition} {weatherData?.temperature} ˚
         </h1>
         <section>
           <p>Pick your location:</p>
@@ -96,7 +94,7 @@ export default function Home() {
 
         <h3>
           {" "}
-          {weatherData.isGoodWeather
+          {weatherData?.isGoodWeather
             ? "Currently we're having good weather"
             : "Currently we're having bad weather"}
         </h3>
