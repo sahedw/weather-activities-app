@@ -4,6 +4,8 @@ export default function Form({ onAddActivity }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
+    console.log(event.target.elements.isGoodWeatherActivity.checked);
+
     onAddActivity(data);
 
     event.target.reset();
@@ -11,17 +13,28 @@ export default function Form({ onAddActivity }) {
 
   return (
     <section>
-      <h1>The Activity App</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name"> Activity: </label>
-        <input type="text" name="name" id="name" />
-        <label htmlFor="isGoodWeatherActivity"> Good Weather Activity: </label>
-        <input
-          type="checkbox"
-          name="isGoodWeatherActivity"
-          id="isGoodWeatherActivity"
-        />
-        <button type="submit"> Add to the list!</button>
+      <h3>Add a new activity:</h3>
+      <form className="form" onSubmit={handleSubmit}>
+        <section>
+          {" "}
+          <label htmlFor="name"> Activity: </label>
+          <input type="text" name="name" id="name" />
+        </section>
+        <section>
+          <label htmlFor="isGoodWeatherActivity">
+            {" "}
+            Good Weather Activity:{" "}
+          </label>
+          <input
+            type="checkbox"
+            name="isGoodWeatherActivity"
+            id="isGoodWeatherActivity"
+          />
+        </section>
+
+        <section>
+          <button type="submit"> Submit </button>
+        </section>
       </form>
     </section>
   );

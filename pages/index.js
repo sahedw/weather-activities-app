@@ -4,22 +4,16 @@ import styles from "@/styles/Home.module.css";
 import Form from "@/components/Form";
 import { useState } from "react";
 import { uid } from "uid";
+import useLocalStorageState from "use-local-storage-state";
 
 const inter = Inter({ subsets: ["latin"] });
 
-function handleSubmit(event) {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const data = Object.fromEntries(formData);
-
-  console.log(data.activity);
-  console.log(data.isGoodWeatherActivity);
-
-  event.target.reset();
-}
+const isGoodWeather = true;
 
 export default function Home() {
-  const [activity, setActivity] = useState([]);
+  const [activity, setActivity] = useLocalStorageState("activities", {
+    defaultValue: [],
+  });
 
   function handleAddActivity(newActivity) {
     setActivity([...activity, { ...newActivity, id: uid() }]);
@@ -33,12 +27,19 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ul>
-        {activity.map((element) => {
-          return <li key={element.id}>{element.name}</li>;
-        })}
-      </ul>
-      <Form onSubmit={handleSubmit} onAddActivity={handleAddActivity} />
+      <main>
+        <h1>The Activity App</h1>
+        <ul className="activities-list">
+          {activity.map((element) => {
+            return (
+              <li className="activities" key={element.id}>
+                {element.name}
+              </li>
+            );
+          })}
+        </ul>
+        <Form onAddActivity={handleAddActivity} />
+      </main>
     </>
   );
 }
