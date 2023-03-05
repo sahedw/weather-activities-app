@@ -28,7 +28,7 @@ export default function Home() {
   }
 
   const filteredWeatherActivities = activity.filter(
-    (element) => element.checkedWeather === isGoodWeather
+    (element) => element.checkedWeather === weatherData.isGoodWeather
   );
 
   const url = `https://example-apis.vercel.app/api/weather/${location}`;
@@ -96,7 +96,7 @@ export default function Home() {
 
         <h3>
           {" "}
-          {isGoodWeather
+          {weatherData.isGoodWeather
             ? "Currently we're having good weather"
             : "Currently we're having bad weather"}
         </h3>
