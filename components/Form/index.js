@@ -4,9 +4,10 @@ export default function Form({ onAddActivity }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    console.log(event.target.elements.isGoodWeatherActivity.checked);
+    const inputText = event.target.elements[0].value;
+    const checkedWeather = event.target.elements[1].checked;
 
-    onAddActivity(data);
+    onAddActivity({ inputText: inputText, checkedWeather: checkedWeather });
 
     event.target.reset();
   }
